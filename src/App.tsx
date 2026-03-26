@@ -219,12 +219,20 @@ export default function App() {
   };
 
   const navLinks = [
-    { name: 'Về chúng tôi', href: '#about' },
-    { name: 'Đối tác', href: '#partners' },
-    { name: 'Sản phẩm & Dịch vụ', href: '#ecosystem' },
-    { name: 'Dự án', href: '#projects' },
-    { name: 'Blog', href: '#blog' },
+    { name: 'Về chúng tôi', href: '#about', scrollCenter: true },
+    { name: 'Đối tác', href: '#partners', scrollCenter: true },
+    { name: 'Sản phẩm & Dịch vụ', href: '#ecosystem', scrollCenter: true },
+    { name: 'Dự án', href: '#projects', scrollCenter: true },
+    { name: 'Blog', href: '#blog', scrollCenter: true },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    if (link.scrollCenter) {
+      e.preventDefault();
+      const el = document.querySelector(link.href);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white text-brand-light selection:bg-brand-green selection:text-white overflow-x-hidden">
@@ -238,7 +246,7 @@ export default function App() {
           {/* Desktop Nav */}
           <div className="hidden xl:flex items-center gap-6 h-[44px]">
             {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="nav-link">
+              <a key={link.name} href={link.href} className="nav-link" onClick={(e) => handleNavClick(e, link)}>
                 {link.name}
               </a>
             ))}
@@ -273,7 +281,7 @@ export default function App() {
                   key={link.name}
                   href={link.href}
                   className="text-lg font-display font-semibold text-brand-dark hover:text-brand-green transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => { handleNavClick(e, link); setIsMenuOpen(false); }}
                 >
                   {link.name}
                 </a>
@@ -346,7 +354,7 @@ export default function App() {
       </section>
 
       {/* Vision Section */}
-      <section id="about" className="pt-20 pb-16 md:py-16 bg-white text-brand-dark">
+      <section className="pt-20 pb-16 md:py-16 bg-white text-brand-dark">
         <div className="max-w-[1600px] mx-auto px-4 md:px-16">
           <div className="w-full flex flex-col items-start gap-8">
             <motion.div
@@ -390,7 +398,7 @@ export default function App() {
               ))}
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8 md:mt-16">
+            <div id="about" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-8 md:mt-16">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -578,19 +586,19 @@ export default function App() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="w-full grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-center justify-items-center"
+            className="w-full grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 items-center justify-items-center"
           >
-            <motion.div variants={itemVariants}>
-              <img src="https://framerusercontent.com/images/FyDf4sC6VKMLjhu1ncxFB4DpBKQ.png" alt="BYBIT" className="h-[50px] md:h-[60px] object-contain max-w-full" />
+            <motion.div variants={itemVariants} className="flex justify-center w-full">
+              <img src="https://framerusercontent.com/images/FyDf4sC6VKMLjhu1ncxFB4DpBKQ.png" alt="BYBIT" className="h-[50px] md:h-[60px] object-contain" />
             </motion.div>
-            <motion.div variants={itemVariants}>
-              <img src="https://framerusercontent.com/images/RG85tPHjTc0UPrvU7pUBZU6kWvQ.png" alt="CK Capital" className="h-[50px] md:h-[60px] object-contain max-w-full" />
+            <motion.div variants={itemVariants} className="flex justify-center w-full">
+              <img src="https://framerusercontent.com/images/RG85tPHjTc0UPrvU7pUBZU6kWvQ.png" alt="CK Capital" className="h-[50px] md:h-[60px] object-contain" />
             </motion.div>
-            <motion.div variants={itemVariants}>
-              <img src="https://framerusercontent.com/images/Mg3epEAannHMF1AivCv0vgIBtEM.png" alt="Followin" className="h-[50px] md:h-[60px] object-contain max-w-full" />
+            <motion.div variants={itemVariants} className="flex justify-center w-full">
+              <img src="https://framerusercontent.com/images/Mg3epEAannHMF1AivCv0vgIBtEM.png" alt="Followin" className="h-[50px] md:h-[60px] object-contain" />
             </motion.div>
-            <motion.div variants={itemVariants}>
-              <img src="https://framerusercontent.com/images/RoGR2LFGSTUNTkTiAeTLXsFuTQ.png" alt="BingX" className="h-[50px] md:h-[60px] object-contain max-w-full" />
+            <motion.div variants={itemVariants} className="flex justify-center w-full">
+              <img src="https://framerusercontent.com/images/RoGR2LFGSTUNTkTiAeTLXsFuTQ.png" alt="BingX" className="h-[50px] md:h-[60px] object-contain" />
             </motion.div>
           </motion.div>
 
@@ -600,16 +608,16 @@ export default function App() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="w-full grid grid-cols-3 md:flex md:flex-wrap justify-center gap-8 md:gap-12 items-center"
+            className="w-full grid grid-cols-3 gap-4 md:gap-12 items-center justify-items-center"
           >
             <motion.div variants={itemVariants} className="flex justify-center">
-              <img src="https://framerusercontent.com/images/lJkYR3hloYZ7tIMRsb80IdQdKXE.png" alt="BTN Group" className="h-[70px] md:h-[135px] object-contain max-w-full" />
+              <img src="https://framerusercontent.com/images/lJkYR3hloYZ7tIMRsb80IdQdKXE.png" alt="BTN Group" className="h-[90px] md:h-[135px] object-contain max-w-full" />
             </motion.div>
             <motion.div variants={itemVariants} className="flex justify-center">
-              <img src="https://framerusercontent.com/images/G3fIbNlrvlnRnPWJxxYwvPbso.png" alt="Di-Agri Chain" className="h-[70px] md:h-[135px] object-contain max-w-full" />
+              <img src="https://framerusercontent.com/images/G3fIbNlrvlnRnPWJxxYwvPbso.png" alt="Di-Agri Chain" className="h-[90px] md:h-[135px] object-contain max-w-full" />
             </motion.div>
             <motion.div variants={itemVariants} className="flex justify-center">
-              <img src="https://framerusercontent.com/images/3a02l0Il3E1JxKbjmwdvbSBQhNQ.png" alt="PRO INVEST" className="h-[70px] md:h-[135px] object-contain max-w-full" />
+              <img src="https://framerusercontent.com/images/3a02l0Il3E1JxKbjmwdvbSBQhNQ.png" alt="PRO INVEST" className="h-[90px] md:h-[135px] object-contain max-w-full" />
             </motion.div>
           </motion.div>
         </div>
